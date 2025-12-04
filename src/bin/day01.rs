@@ -1,6 +1,6 @@
 fn main() {
     let input = include_str!("../../data/day01/input");
-    let mut curr = 50u32;
+    let mut curr = 50;
     let mut count1 = 0;
     let mut count2 = 0;
     for line in input.split("\n").filter(|l| !l.is_empty()) {
@@ -8,9 +8,7 @@ fn main() {
         let number: u32 = n.parse().unwrap();
         curr = match d {
             "R" => {
-                if curr + number >= 100 {
-                    count2 += 1 + (number + curr - 100) / 100;
-                }
+                count2 += (number + curr) / 100;
                 (curr + number) % 100
             }
             "L" => {

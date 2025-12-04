@@ -9,24 +9,24 @@ fn main() {
     for (i, size) in [2, 12].into_iter().enumerate() {
         let mut sum = 0;
         for bank in &banks {
-            let mut maxs = vec![0; size];
+            let mut bank_max = 0;
             let mut index = 0;
-            for (m, max) in maxs.iter_mut().enumerate() {
+            for m in 0..size {
+                let mut max = 0;
                 for (i, &val) in bank
                     .iter()
                     .take(bank.len() - size + m + 1)
                     .enumerate()
                     .skip(index)
                 {
-                    if val > *max {
-                        *max = val;
+                    if val > max {
+                        max = val;
                         index = i + 1;
                     }
                 }
+                bank_max = bank_max * 10 + max as u64;
             }
-            sum += maxs
-                .into_iter()
-                .fold(0u64, |res, val| res * 10 + val as u64);
+            sum += bank_max;
         }
         println!("Result{}: {sum}", i + 1);
     }
